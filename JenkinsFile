@@ -1,33 +1,55 @@
 pipeline {
     agent any
+
     stages {
         stage('Build') {
             steps {
-                echo "Building..."
-            }
-            post{
-                success{
-                    mail to: "muazhoquenoman2004@gmail.com",
-                    subject: "Buid Status Email",
-                    body: "Build was successful!"
-                }
+                echo 'Stage 1: Building the code using a build automation tool (e.g., Maven)...'
+                // Tool: Maven (for Java) or Gradle
             }
         }
-        stage('Test') {
+
+        stage('Unit and Integration Tests') {
             steps {
-                echo "Unit tests"
-                echo "Integration tests"
+                echo 'Stage 2: Running unit tests and integration tests...'
+                // Tools: JUnit, TestNG, or PyTest
             }
         }
-        stage('Deploy') {
+
+        stage('Code Analysis') {
             steps {
-                echo "Deploy the application to a testing environment specified by the environment variable"
+                echo 'Stage 3: Analyzing code quality and standards...'
+                // Tool: SonarQube (or SonarCloud)
             }
         }
-        stage('Complete') {
+
+        stage('Security Scan') {
             steps {
-                echo "completed"
+                echo 'Stage 4: Scanning for vulnerabilities in code and dependencies...'
+                // Tool: OWASP Dependency-Check or Snyk
+            }
+        }
+
+        stage('Deploy to Staging') {
+            steps {
+                echo 'Stage 5: Deploying the application to a staging server (e.g., AWS EC2)...'
+                // Tool: AWS EC2 or Docker
+            }
+        }
+
+        stage('Integration Tests on Staging') {
+            steps {
+                echo 'Stage 6: Running integration tests on the staging environment...'
+                // Tools: Selenium, Postman/Newman
+            }
+        }
+
+        stage('Deploy to Production') {
+            steps {
+                echo 'Stage 7: Deploying the application to the production server...'
+                // Tool: AWS EC2 or Kubernetes
             }
         }
     }
 }
+
