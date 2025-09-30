@@ -4,23 +4,20 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Stage 1: Building the code using a build automation tool (e.g., Maven)...'
-                // Tool: Maven (for Java) or Gradle
+                echo 'Stage 1: Building the code using a build tool like Maven or Gradle...'
             }
         }
 
         stage('Unit and Integration Tests') {
             steps {
-                echo 'Stage 2: Running unit tests and integration tests...'
-                // Tools: JUnit, TestNG, or PyTest
+                echo 'Stage 2: Running unit and integration tests...'
             }
             post {
                 success {
                     emailext (
                         to: 'muazhoquenoman2004@gmail.com',
                         subject: "SUCCESS: Unit & Integration Tests - ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                        body: """<p>Unit and Integration Tests passed for job <b>${env.JOB_NAME}</b> build #${env.BUILD_NUMBER}.</p>
-                                 <p>Check console output at: ${env.BUILD_URL}</p>""",
+                        body: "Unit and Integration Tests passed for job ${env.JOB_NAME} build #${env.BUILD_NUMBER}.\nCheck console output at: ${env.BUILD_URL}",
                         attachLog: true
                     )
                 }
@@ -28,8 +25,7 @@ pipeline {
                     emailext (
                         to: 'muazhoquenoman2004@gmail.com',
                         subject: "FAILURE: Unit & Integration Tests - ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                        body: """<p>Unit and Integration Tests failed for job <b>${env.JOB_NAME}</b> build #${env.BUILD_NUMBER}.</p>
-                                 <p>Check console output at: ${env.BUILD_URL}</p>""",
+                        body: "Unit and Integration Tests failed for job ${env.JOB_NAME} build #${env.BUILD_NUMBER}.\nCheck console output at: ${env.BUILD_URL}",
                         attachLog: true
                     )
                 }
@@ -38,23 +34,20 @@ pipeline {
 
         stage('Code Analysis') {
             steps {
-                echo 'Stage 3: Analyzing code quality and standards...'
-                // Tool: SonarQube (or SonarCloud)
+                echo 'Stage 3: Analyzing code quality with SonarQube...'
             }
         }
 
         stage('Security Scan') {
             steps {
-                echo 'Stage 4: Scanning for vulnerabilities in code and dependencies...'
-                // Tool: OWASP Dependency-Check or Snyk
+                echo 'Stage 4: Scanning for vulnerabilities...'
             }
             post {
                 success {
                     emailext (
                         to: 'muazhoquenoman2004@gmail.com',
                         subject: "SUCCESS: Security Scan - ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                        body: """<p>Security Scan passed for job <b>${env.JOB_NAME}</b> build #${env.BUILD_NUMBER}.</p>
-                                 <p>Check console output at: ${env.BUILD_URL}</p>""",
+                        body: "Security Scan passed for job ${env.JOB_NAME} build #${env.BUILD_NUMBER}.\nCheck console output at: ${env.BUILD_URL}",
                         attachLog: true
                     )
                 }
@@ -62,8 +55,7 @@ pipeline {
                     emailext (
                         to: 'muazhoquenoman2004@gmail.com',
                         subject: "FAILURE: Security Scan - ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                        body: """<p>Security Scan failed for job <b>${env.JOB_NAME}</b> build #${env.BUILD_NUMBER}.</p>
-                                 <p>Check console output at: ${env.BUILD_URL}</p>""",
+                        body: "Security Scan failed for job ${env.JOB_NAME} build #${env.BUILD_NUMBER}.\nCheck console output at: ${env.BUILD_URL}",
                         attachLog: true
                     )
                 }
@@ -72,27 +64,20 @@ pipeline {
 
         stage('Deploy to Staging') {
             steps {
-                echo 'Stage 5: Deploying the application to a staging server (e.g., AWS EC2)...'
-                // Tool: AWS EC2 or Docker
+                echo 'Stage 5: Deploying to staging server...'
             }
         }
 
         stage('Integration Tests on Staging') {
             steps {
-                echo 'Stage 6: Running integration tests on the staging environment...'
-                // Tools: Selenium, Postman/Newman
+                echo 'Stage 6: Running integration tests on staging...'
             }
         }
 
         stage('Deploy to Production') {
             steps {
-                echo 'Stage 7: Deploying the application to the production server...'
-                // Tool: AWS EC2 or Kubernetes
+                echo 'Stage 7: Deploying to production server...'
             }
         }
     }
 }
-
-
-
-
