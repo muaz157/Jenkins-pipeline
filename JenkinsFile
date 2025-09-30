@@ -14,6 +14,26 @@ pipeline {
                 echo 'Stage 2: Running unit tests and integration tests...'
                 // Tools: JUnit, TestNG, or PyTest
             }
+            post {
+                success {
+                    emailext (
+                        to: 'muazhoquenoman2004@gmail.com',
+                        subject: "SUCCESS: Unit & Integration Tests - ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                        body: """<p>Unit and Integration Tests passed for job <b>${env.JOB_NAME}</b> build #${env.BUILD_NUMBER}.</p>
+                                 <p>Check console output at: ${env.BUILD_URL}</p>""",
+                        attachLog: true
+                    )
+                }
+                failure {
+                    emailext (
+                        to: 'muazhoquenoman2004@gmail.com',
+                        subject: "FAILURE: Unit & Integration Tests - ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                        body: """<p>Unit and Integration Tests failed for job <b>${env.JOB_NAME}</b> build #${env.BUILD_NUMBER}.</p>
+                                 <p>Check console output at: ${env.BUILD_URL}</p>""",
+                        attachLog: true
+                    )
+                }
+            }
         }
 
         stage('Code Analysis') {
@@ -27,6 +47,26 @@ pipeline {
             steps {
                 echo 'Stage 4: Scanning for vulnerabilities in code and dependencies...'
                 // Tool: OWASP Dependency-Check or Snyk
+            }
+            post {
+                success {
+                    emailext (
+                        to: 'muazhoquenoman2004@gmail.com',
+                        subject: "SUCCESS: Security Scan - ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                        body: """<p>Security Scan passed for job <b>${env.JOB_NAME}</b> build #${env.BUILD_NUMBER}.</p>
+                                 <p>Check console output at: ${env.BUILD_URL}</p>""",
+                        attachLog: true
+                    )
+                }
+                failure {
+                    emailext (
+                        to: 'muazhoquenoman2004@gmail.com',
+                        subject: "FAILURE: Security Scan - ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                        body: """<p>Security Scan failed for job <b>${env.JOB_NAME}</b> build #${env.BUILD_NUMBER}.</p>
+                                 <p>Check console output at: ${env.BUILD_URL}</p>""",
+                        attachLog: true
+                    )
+                }
             }
         }
 
@@ -52,6 +92,3 @@ pipeline {
         }
     }
 }
-
-
-
