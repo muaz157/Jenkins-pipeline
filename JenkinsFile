@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Stage 1: Building the code using a build tool like Maven or Gradle...'
+                echo 'Stage 1:- Building the code using a build tool like Maven or Gradle...'
             }
         }
 
@@ -81,3 +81,4 @@ pipeline {
         }
     }
 }
+
