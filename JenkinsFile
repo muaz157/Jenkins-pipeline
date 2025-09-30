@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Stage 1: Building the code using a build automation tool (e.g., "Maven")...'
+                echo 'Stage 1: Building the code using a build automation tool (e.g., Maven)...'
                 // Tool: Maven (for Java) or Gradle
             }
         }
@@ -92,6 +92,7 @@ pipeline {
         }
     }
 }
+
 
 
 
